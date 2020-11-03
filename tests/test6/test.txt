@@ -1,0 +1,11 @@
+let number a;
+let number b;
+let boolean bbb;
+a = 3;
+b = a;
+let boolean c;
+c = a < b;
+if (c) bbb = bbb &&c;
+a = a + b;
+alert (a);
+alert(b);
