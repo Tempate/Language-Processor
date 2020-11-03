@@ -12,6 +12,8 @@ class Automata:
 
         self.symbol_table = symbol_table
 
+        self.current_line = {"number": 1, "value": ""}
+        
         self.value = 0
         self.lexeme = ""
  
@@ -21,6 +23,10 @@ class Automata:
 
             if not char:
                 break
+            elif char == '\n':
+                self.current_line["number"] += 1
+            else:
+                self.current_line["value"] += char
 
             self.state(char)
 
@@ -53,19 +59,19 @@ class Automata:
         elif char == "/":
             self.state = self.state_12
         else:
-            Automata.invalid_character_error(char)
+            self.invalid_character_error(char)
 
     def state_1(self, char):
         if char == "=":
             self.state_6(char)
         else:
-            Automata.invalid_character_error(char)
+            self.invalid_character_error(char)
 
     def state_2(self, char):
         if char == "&":
             self.state_8(char)
         else:
-            Automata.invalid_character_error(char)
+            self.invalid_character_error(char)
 
     def state_3(self, char):
         if char in numbers:
@@ -74,7 +80,7 @@ class Automata:
         elif char in delta:
             self.state_9(char)
         else:
-            Automata.invalid_character_error(char)
+            self.invalid_character_error(char)
 
     def state_4(self, char):
         valid = numbers + letters + ['_']
@@ -85,7 +91,7 @@ class Automata:
         elif char in delta:
             self.state_10(char)
         else:
-            Automata.invalid_character_error(char)
+            self.invalid_character_error(char)
 
     def state_5(self, char):
         if char == '\'':
@@ -170,7 +176,7 @@ class Automata:
         if char == '/':
             self.state = self.state_13
         else:
-            Automata.invalid_character_error(char)
+            self.invalid_character_error(char)
 
     def state_13(self, char):
         if char == '\n':
@@ -188,7 +194,7 @@ class Automata:
     def write_token(self, token):
         self.out_file.write(token.to_string() + "\n")
 
-    @staticmethod
-    def invalid_character_error(char):
-        print("[-] Invalid character: " + char)
+    def invalid_character_error(self, char):
+        print("\n\033[93m[-] Invalid character\033[0m %s in line %d: \n" % (char, self.current_line["number"]))
+        print(self.current_line["value"][:-1] + "\033[91m" + self.current_line["value"][-1] + "\033[0m\n")
         exit(0)
