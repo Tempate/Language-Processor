@@ -14,7 +14,8 @@ def main():
 
     symbol_table.save()
 
-
+#Función encargada de gestionar la interacción con el usuario. Le permite al usuario mediante argumentos:
+# mostrar la ayuda, elegir el directorio del archivo a leer y el directorio donde guardar los archivos que se generen.
 def read_commands():
     parser = OptionParser("%prog -f <input_file>")
     parser.add_option("-f", dest="input", help="File to analyse")
@@ -22,6 +23,7 @@ def read_commands():
 
     (options, args) = parser.parse_args()
 
+    #Si no se proporcionan argumentos se muestra la ayuda por consola.
     if not options.input:
         parser.print_help()
         exit(0)
