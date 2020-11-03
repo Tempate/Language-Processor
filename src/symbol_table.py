@@ -26,8 +26,17 @@ class SymbolTable:
 
         return False
 
+    def find(self, lexeme):
+        for i in range(len(self.table)):
+            entry = self.table[i]
+
+            if entry["lexeme"] == lexeme:
+                return i
+
+        return -1
+
     def to_string(self):
-        text  = "TABLA PRINCIPAL #1:\n"
+        text  = "#1:\n"
         
         for entry in self.table:
             text += "* '%s'\n" % entry["lexeme"]

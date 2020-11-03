@@ -1,7 +1,7 @@
-from tokens import Token
-from characters import *
+from .symbol_table import SymbolTable
+from .tokens import Token
+from .characters import *
 
-from symbol_table import SymbolTable
 
 class Automata:
     def __init__(self, options, symbol_table):
@@ -53,19 +53,19 @@ class Automata:
         elif char == "/":
             self.state = self.state_12
         else:
-            Automata.invalid_character_error()
+            Automata.invalid_character_error(char)
 
     def state_1(self, char):
         if char == "=":
             self.state_6(char)
         else:
-            Automata.invalid_character_error()
+            Automata.invalid_character_error(char)
 
     def state_2(self, char):
         if char == "&":
             self.state_8(char)
         else:
-            Automata.invalid_character_error()
+            Automata.invalid_character_error(char)
 
     def state_3(self, char):
         if char in numbers:
@@ -74,7 +74,7 @@ class Automata:
         elif char in delta:
             self.state_9(char)
         else:
-            Automata.invalid_character_error()
+            Automata.invalid_character_error(char)
 
     def state_4(self, char):
         valid = numbers + letters + ['_']
@@ -85,7 +85,7 @@ class Automata:
         elif char in delta:
             self.state_10(char)
         else:
-            Automata.invalid_character_error()
+            Automata.invalid_character_error(char)
 
     def state_5(self, char):
         if char == '\'':
@@ -147,16 +147,17 @@ class Automata:
 
         if self.lexeme in reserved_words:
             token = Token(self.lexeme, "")
-            self.write_token(token)
         elif self.lexeme == "true" or self.lexeme == "false":
             token = Token("constanteBooleana", self.lexeme)
-            self.write_token(token)
         elif not self.symbol_table.has(self.lexeme):
             # TODO: declaration zone
             position = self.symbol_table.add(self.lexeme)
             token = Token("identificador", position)
-            self.write_token(token)
-        
+        else:
+            position = self.symbol_table.find(self.lexeme)
+            token = Token("identificador", position)
+
+        self.write_token(token)
         self.state_0(char)
 
     def state_11(self, char):
@@ -169,7 +170,7 @@ class Automata:
         if char == '/':
             self.state = self.state_13
         else:
-            Automata.invalid_character_error()
+            Automata.invalid_character_error(char)
 
     def state_13(self, char):
         if char == '\n':
@@ -188,6 +189,6 @@ class Automata:
         self.out_file.write(token.to_string() + "\n")
 
     @staticmethod
-    def invalid_character_error():
-        print("[-] Invalid character.")
+    def invalid_character_error(char):
+        print("[-] Invalid character: " + char)
         exit(0)

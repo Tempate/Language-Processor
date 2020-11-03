@@ -16,7 +16,7 @@ separators = ['(', ')', '{', '}', ',', ';', ':']
 operators = ['+', '<', '=']
 
 sigma = separators + operators
-theta = sigma + ['\'']
+theta = sigma + ['\'', '-', '&']
 
 delimiters = [' ', '\t', '\n']
 
