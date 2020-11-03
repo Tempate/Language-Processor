@@ -1,0 +1,5 @@
+// This function adds two numbers
+function add(let number a, let number b) {
+    let number result = a + b;
+    return result;
+}

@@ -1,0 +1,8 @@
+TABLA PRINCIPAL #1:
+* 'a'
+* 'b'
+* 'int'
+* 'operacion'
+* 'num1'
+* 'num2'
+* 'res'
