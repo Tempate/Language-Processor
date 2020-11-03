@@ -16,7 +16,7 @@ def main():
 
 
 def read_commands():
-    parser = OptionParser()
+    parser = OptionParser("%prog -f <input_file>")
     parser.add_option("-f", dest="input", help="File to analyse")
     parser.add_option("-t", "--output-tokens", dest="output_tokens", help="File to save tokens to")
     parser.add_option("-s", "--output-tables", dest="output_tables", help="File to save tables to")
