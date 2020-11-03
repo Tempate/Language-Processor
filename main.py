@@ -23,6 +23,10 @@ def read_commands():
 
     (options, args) = parser.parse_args()
 
+    if not options.input:
+        parser.print_help()
+        exit(0)
+
     if not options.output_tokens:
         options.output_tokens = "tokens.txt"
 
