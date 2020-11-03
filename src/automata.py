@@ -7,8 +7,8 @@ class Automata:
     def __init__(self, options, symbol_table):
         self.state = self.state_0
 
-        self.inp_file = open(options.input, "r")
-        self.out_file = open(options.output_tokens, "w")
+        self.inp_file = open(options["input"], "r")
+        self.out_file = open(options["tokens"], "w")
 
         self.symbol_table = symbol_table
 
@@ -25,6 +25,7 @@ class Automata:
                 break
             elif char == '\n':
                 self.current_line["number"] += 1
+                self.current_line["value"] = ""
             else:
                 self.current_line["value"] += char
 

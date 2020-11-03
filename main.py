@@ -18,8 +18,7 @@ def main():
 def read_commands():
     parser = OptionParser("%prog -f <input_file>")
     parser.add_option("-f", dest="input", help="File to analyse")
-    parser.add_option("-t", "--output-tokens", dest="output_tokens", help="File to save tokens to")
-    parser.add_option("-s", "--output-tables", dest="output_tables", help="File to save tables to")
+    parser.add_option("-o", dest="output", help="Directory in which to save output files")
 
     (options, args) = parser.parse_args()
 
@@ -27,11 +26,16 @@ def read_commands():
         parser.print_help()
         exit(0)
 
-    if not options.output_tokens:
-        options.output_tokens = "tokens.txt"
+    if not options.output:
+        options.output = ""
+    elif options.output[-1] != "/":
+        options.output += "/"
 
-    if not options.output_tables:
-        options.output_tables = "tables.txt"
+    options = {
+        "input" : options.input,
+        "tokens": options.output + "tokens.txt",
+        "tables": options.output + "tables.txt"
+    }
 
     return options
 

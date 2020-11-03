@@ -2,7 +2,7 @@ class SymbolTable:
     def __init__(self, options):
         self.table = []
 
-        self.out_file = options.output_tables
+        self.out_file = options["tables"]
 
     def add(self, lexeme):
         entry = {
