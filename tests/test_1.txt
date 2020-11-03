@@ -1,4 +1,0 @@
-if (123 < 0234) {
-    // Esto es un comentario
-    alert('Hola mundo');
-}

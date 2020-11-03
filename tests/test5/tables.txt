@@ -1,0 +1,10 @@
+#1:
+* 'n1'
+* 'n2'
+* 'l1'
+* 'l2'
+* 'cad'
+* 'esto_es_un_nombre_de_variable_global_de_tipo_entero'
+* 'ff'
+* 'ss'
+* 'varglobal'
