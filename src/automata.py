@@ -2,7 +2,7 @@ from .symbol_table import SymbolTable
 from .tokens import Token
 from .characters import *
 
-
+#Clase encargada de emular el autómata, que se inicializa en el estado 0.
 class Automata:
     def __init__(self, options, symbol_table):
         self.state = self.state_0
@@ -17,6 +17,8 @@ class Automata:
         self.value = 0
         self.lexeme = ""
  
+ #Primero leemos el cáracter del documento y luego iniciamos el autómata en el estado que corresponde pasando el 'char' como parámetro.
+ #Durante la ejecución del autómata cambiamos la función a la que hace referencia "self.state" para simular la transición de estados. 
     def run(self):
         while True:
             char = self.read_next_character()
@@ -31,6 +33,8 @@ class Automata:
 
             self.state(char)
 
+        #En caso de que el documento acabe y el autómata se encuentre en el estado 3 o 4, forzamos la ejecución
+        #de sus respectivos estados finales para que reconozca el la palabra y genere el token.
         if self.state == self.state_3:
             self.state_9(' ')
         elif self.state == self.state_4:
@@ -38,7 +42,11 @@ class Automata:
 
         self.inp_file.close()
         self.out_file.close()
+    
+    #En cada estado se comprueba el carácter leído y se transita al correspondiente estado siguiente. Al llegar a los estados finales
+    #generamos los correspondientes tokens y, si fuera necesario, se interactua con la tabla de símbolos.
 
+    #Estado 0
     def state_0(self, char):
         if char in delimiters:
             self.state = self.state_0
@@ -61,19 +69,19 @@ class Automata:
             self.state = self.state_12
         else:
             self.invalid_character_error(char)
-
+    #Estado 1
     def state_1(self, char):
         if char == "=":
             self.state_6(char)
         else:
             self.invalid_character_error(char)
-
+    #Estado 2
     def state_2(self, char):
         if char == "&":
             self.state_8(char)
         else:
             self.invalid_character_error(char)
-
+    #Estado 3
     def state_3(self, char):
         if char in numbers:
             self.value = self.value * 10 + int(char)
@@ -81,7 +89,7 @@ class Automata:
             self.state_9(char)
         else:
             self.invalid_character_error(char)
-
+    #Estado 4
     def state_4(self, char):
         valid = numbers + letters + ['_']
 
@@ -91,20 +99,20 @@ class Automata:
             self.state_10(char)
         else:
             self.invalid_character_error(char)
-
+    #Estado 5
     def state_5(self, char):
         if char == '\'':
             self.state = self.state_11
         else:
             self.lexeme += char
             
-
+    #Estado 6
     def state_6(self, char):
         token = Token("operadorAsignacion", "2")
 
         self.write_token(token)
         self.state = self.state_0
-
+    #Estado 7
     def state_7(self, char):
         token = Token("null", "null")
 
@@ -131,19 +139,19 @@ class Automata:
         
         self.write_token(token)
         self.state = self.state_0
-
+    #Estado 8
     def state_8(self, char):
         token = Token("operadorLogico", "1")
 
         self.write_token(token)
         self.state = self.state_0
-
+    #Estado 9
     def state_9(self, char):
         token = Token("constanteEntera", self.value)
 
         self.write_token(token)
         self.state_0(char)
-
+    #Estado 10
     def state_10(self, char):
         reserved_words = [
             "function", "let", "number", "boolean", "string", "if", "return", 
@@ -154,8 +162,9 @@ class Automata:
             token = Token(self.lexeme, "")
         elif self.lexeme == "true" or self.lexeme == "false":
             token = Token("constanteBooleana", self.lexeme)
+        #Comprobamos que el lexema no se encuentra en la tabla de símbolos
         elif not self.symbol_table.has(self.lexeme):
-            # TODO: declaration zone
+            #Queda para hacer una vez implementemos el analizador semántico la comprobación de la zona de declaración.
             position = self.symbol_table.add(self.lexeme)
             token = Token("identificador", position)
         else:
@@ -164,19 +173,19 @@ class Automata:
 
         self.write_token(token)
         self.state_0(char)
-
+    #Estado 11
     def state_11(self, char):
         token = Token("cadenaCaracteres", self.lexeme)
 
         self.write_token(token)
         self.state_0(char)
-
+    #Estado 12
     def state_12(self, char):
         if char == '/':
             self.state = self.state_13
         else:
             self.invalid_character_error(char)
-
+    #Estado 13
     def state_13(self, char):
         if char == '\n':
             self.state = self.state_0
@@ -184,7 +193,7 @@ class Automata:
     def read_next_character(self):
         char = self.inp_file.read(1)
 
-        # We've reached the end of the file
+        # Llegamos al final del documento
         if not char:
             return 0
 
