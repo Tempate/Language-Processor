@@ -77,7 +77,6 @@ class Automata:
     def state_3(self, char):
         if char in numbers:
             self.value = self.value * 10 + int(char)
-            self.state = self.state_3
         elif char in delta:
             self.state_9(char)
         else:
@@ -88,7 +87,6 @@ class Automata:
 
         if char in valid:
             self.lexeme += char
-            self.state = self.state_4
         elif char in delta:
             self.state_10(char)
         else:
@@ -99,7 +97,7 @@ class Automata:
             self.state = self.state_11
         else:
             self.lexeme += char
-            self.state = self.state_5
+            
 
     def state_6(self, char):
         token = Token("operadorAsignacion", "2")
