@@ -1,0 +1,35 @@
+let number z;
+let boolean boolean_1;
+let number x;
+let string ss;
+let number xx;
+let boolean boolean_2;
+
+
+function number f1(number f1, boolean b1)
+{
+		alert(ss);
+		x -= xx+f1;
+		boolean_1 = boolean_1&& boolean_2;
+		return (01234);
+}
+
+
+function boolean f2(number f2, boolean b1)
+{
+		input (y);
+		alert ((4+5+77+(088+f2)));
+		return (boolean_1&&boolean_2&&b1);
+}
+
+x =
+  x + 6	
+    + z 
+    + 1
+    + (2
+    + y 
+    + 6)
+	;
+	
+ss=;	
+alert (f2 (f1 (x, boolean_1), boolean_2));
