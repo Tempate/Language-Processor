@@ -1,0 +1,15 @@
+
+
+	let	boolean	b;let number x;
+input (z);
+alert (z);
+x=z;
+alert (z+1);
+b=b&&b;if (b)
+x =
+  x + 6
+    + z
+    + 1
+    + (2
+    + y
+    + 6);

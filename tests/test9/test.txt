@@ -1,0 +1,15 @@
+
+
+	let	boolean	b;let number x;
+input (x);
+alert (x);
+input (z);
+alert (x+z);
+b=x<z;if (b)
+x =
+  x + 6
+    + z
+    + 1
+    + (2
+    + y
+    + 6);
