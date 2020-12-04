@@ -1,9 +1,9 @@
-from .symbol_table import SymbolTable
-from .tokens import Token
-from .characters import *
+from api.symbol_table import SymbolTable
+from api.tokens import Token
+from api.characters import *
 
 
-class Automata:
+class LexicalAutomata:
     def __init__(self, options, symbol_table):
         # Iniciamos el autómata en el estado 0
         self.state = self.state_0
@@ -17,6 +17,8 @@ class Automata:
         
         self.value = 0
         self.lexeme = ""
+
+        self.tokens = []
  
     # Primero leemos el cáracter del documento y luego iniciamos el autómata en 
     # el estado que corresponde pasando el 'char' como parámetro.
@@ -45,6 +47,8 @@ class Automata:
 
         self.inp_file.close()
         self.out_file.close()
+
+        return self.tokens
     
     # Los estados de transición procesan el caracter leído. 
     # Los estados finales generan los tokens correspondientes y, 
@@ -114,7 +118,7 @@ class Automata:
             
     
     def state_6(self, char):
-        token = Token("operadorAsignacion", "2")
+        token = Token("operadorAsignacion", 2)
 
         self.write_token(token)
         self.state = self.state_0
@@ -123,31 +127,31 @@ class Automata:
         token = Token("null", "null")
 
         if char == '+':
-            token = Token("operadorAritmetico", "1")
+            token = Token("operadorAritmetico", 1)
         elif char == '=':
-            token = Token("operadorAsignacion", "1")
+            token = Token("operadorAsignacion", 1)
         elif char == '<':
-            token = Token("operadorRelacional", "1")
+            token = Token("operadorRelacional", 1)
         elif char == '(':
-            token = Token("separador", "1")
+            token = Token("separador", 1)
         elif char == ')':
-            token = Token("separador", "2")
+            token = Token("separador", 2)
         elif char == '{':
-            token = Token("separador", "3")
+            token = Token("separador", 3)
         elif char == '}':
-            token = Token("separador", "4")
+            token = Token("separador", 4)
         elif char == ',':
-            token = Token("separador", "5")
+            token = Token("separador", 5)
         elif char == ';':
-            token = Token("separador", "6")
+            token = Token("separador", 6)
         elif char == ':':
-            token = Token("separador", "7")
+            token = Token("separador", 7)
         
         self.write_token(token)
         self.state = self.state_0
     
     def state_8(self, char):
-        token = Token("operadorLogico", "1")
+        token = Token("operadorLogico", 1)
 
         self.write_token(token)
         self.state = self.state_0
@@ -207,6 +211,7 @@ class Automata:
 
     def write_token(self, token):
         self.out_file.write(token.to_string() + "\n")
+        self.tokens.append(token)
 
     def invalid_character_error(self, char):
         print("\n\033[93m[-] Invalid character\033[0m %s in line %d: \n" % (char, self.current_line["number"]))

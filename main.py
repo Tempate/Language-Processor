@@ -1,7 +1,8 @@
 from optparse import OptionParser
 
-from src.automata import Automata
-from src.symbol_table import SymbolTable
+from core.lexical import LexicalAutomata
+from core.syntactic import SyntacticAutomata
+from api.symbol_table import SymbolTable
 
 
 def main():
@@ -9,8 +10,8 @@ def main():
 
     symbol_table = SymbolTable(options)
 
-    automata = Automata(options, symbol_table)
-    automata.run()
+    tokens = LexicalAutomata(options, symbol_table).run()
+    SyntacticAutomata(options, tokens).run()
 
     symbol_table.save()
 
@@ -35,7 +36,8 @@ def read_commands():
     options = {
         "input" : options.input,
         "tokens": options.output + "tokens.txt",
-        "tables": options.output + "tables.txt"
+        "tables": options.output + "tables.txt",
+        "parse":  options.output + "parse.txt"
     }
 
     return options
