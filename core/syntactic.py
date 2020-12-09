@@ -4,8 +4,11 @@ import pandas as pd
 import re
 
 
-STATE_PATTERN = re.compile("^[A-Z]{1,2}$")
+NON_TERMINAL_STATE_PATTERN = re.compile("^[A-Z]{1,2}$")
+
 INITIAL_STATE = 'O'
+BLANK_SYMBOL = "''"
+END_OF_FILE_SYMBOL = '$'
 
 
 class SyntacticAutomata:
@@ -14,43 +17,49 @@ class SyntacticAutomata:
         self.tokens = tokens
 
         self.grammar_table = pd.read_csv("api/context_free_grammar_table.csv")
+        
         self.out_file = open(options["parse"], "w")
-
         self.out_file.write("Descendente ")
 
 
     def run(self):
         while self.stack:
-            if STATE_PATTERN.match(self.stack[0]):
-                index, rule = self.get_rule()
+            state = self.stack.pop(0)
 
-                if type(rule) != str:
-                    raise ValueError("Invalid symbol for rule " + str(index))
+            if NON_TERMINAL_STATE_PATTERN.match(state):
+                rule = self.apply_rule(state)
+                self.stack = rule.split() + self.stack
 
-                self.stack = rule.split() + self.stack[1:]
-            else:
-                action = self.stack.pop(0)
-
-                if action == "''":
-                    continue
-
+            elif state != BLANK_SYMBOL:
+                # The state is terminal
                 token = self.tokens.pop(0)
 
-                if action != token.get_symbol():
-                    raise ValueError("Token <%s, %d> doesn't match %s" % (token.type, token.attribute, action))
+                if state != token.get_symbol():
+                    raise ValueError("Token %s doesn't match %s" % (token, action))
 
 
-    def get_rule(self):
-        row = self.grammar_table[(self.grammar_table["Nonterminal"] == self.stack[0])]
-        symbol = self.tokens[0].get_symbol() if self.tokens else '$'
+    def apply_rule(self, state):
+        state_row = self.grammar_table[(self.grammar_table["Nonterminal"] == state)]
         
-        index, rule = row[symbol].iloc[0].split(". ")
+        # If there are no tokens left, use the END_OF_FILE_SYMBOL
+        token_symbol = self.tokens[0].get_symbol() if self.tokens else END_OF_FILE_SYMBOL
+        
+        cell = state_row[token_symbol].iloc[0]
+
+        # Raise an error when the cell is blank
+        if not cell:
+            raise ValueError("Invalid symbol {1} for state {2}".format(token_symbol, state_row))
+
+        if '. ' not in cell:
+            raise ValueError("Cell doesn't match format: <rule number>. <rule>")
+
+        index, rule = cell.split('. ')
 
         self.write_rule_index(index)
 
-        return index, rule
+        return rule
 
 
     def write_rule_index(self, index):
-        self.out_file.write("%d " % int(index))
+        self.out_file.write(index + ' ')
      
