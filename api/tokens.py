@@ -3,7 +3,7 @@ class Token:
         self.type = type
         self.attribute = attribute
 
-    def to_string(self):
+    def __str__(self):
         return "<" + self.type + ", " + str(self.attribute) + ">"
 
     def get_symbol(self):

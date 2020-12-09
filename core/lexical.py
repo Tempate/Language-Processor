@@ -210,7 +210,7 @@ class LexicalAutomata:
         return char
 
     def write_token(self, token):
-        self.out_file.write(token.to_string() + "\n")
+        self.out_file.write("%s\n" % token)
         self.tokens.append(token)
 
     def invalid_character_error(self, char):
