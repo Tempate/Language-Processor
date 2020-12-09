@@ -16,9 +16,10 @@ class Token:
         }
 
         token_to_id = {
-            "constanteEntera":   'n',
-            "constanteBooleana": 'b',
-            "cadenaCaracteres":  's'
+            "constanteEntera":   'c',
+            "constanteBooleana": 'c',
+            "cadenaCaracteres":  'c',
+            "identificador": 'id'
         }
 
         if self.type in token_to_symbol:
