@@ -1,0 +1,4 @@
+<identificador, 0>
+<operadorAsignacion, 1>
+<identificador, 0>
+<separador, 6>

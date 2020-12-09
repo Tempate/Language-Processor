@@ -1,0 +1,2 @@
+let number id = c + ( c + id ( c + c ) ) ;
+let number id ; let number id ; let boolean id ; input ( id ) ; alert ( id ) ; input ( id ) ; alert ( id + id ) ; id = id < id ; if ( id ) id = id + c + id + c + ( c + id + c ) ;
