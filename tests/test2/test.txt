@@ -7,9 +7,9 @@ alert ('Introduce el segundo operando');
 input (b);
 function number operacion (number num1, number num2)
 {
-	let number res;
-	res = 88 + num1+num2;
-	return res;
+	let number a;
+	a = 88 + num1 + num2 + a;
+	return a;
 }
 int = operacion (a, b);
 alert (int);

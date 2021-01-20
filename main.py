@@ -1,19 +1,24 @@
 from optparse import OptionParser
 
 from core.lexical import LexicalAutomata
-from core.syntactic import SyntacticAutomata
+from core.synsem import SynSemAutomata
+
 from api.symbol_table import SymbolTable
 
 
 def main():
     options = read_commands()
 
-    symbol_table = SymbolTable(options)
+    with open(options["tables"], "r+") as file:
+        file.seek(0)
+        file.truncate()
 
-    tokens = LexicalAutomata(options, symbol_table).run()
-    SyntacticAutomata(options, tokens).run()
+    symbol_tables = [SymbolTable(options, 1)]
 
-    symbol_table.save()
+    tokens = LexicalAutomata(options, symbol_tables).run()
+    SynSemAutomata(options, tokens, symbol_tables).run()
+
+    symbol_tables[0].save()
 
 
 def read_commands():

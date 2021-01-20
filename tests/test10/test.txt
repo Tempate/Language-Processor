@@ -1,1 +1,14 @@
-switch ( id ) { case 1 : alert ( 1 ) ; case 2 : alert ( 2 ) ; default : id = 1 + 2 + 3 ; }
+let number x = 4;
+
+function boolean foo() {
+    return 4;
+}
+
+switch (5 + foo()) { 
+case 1: 
+    alert (x); 
+case 2: 
+    alert (x); 
+default: 
+    x = 1 + 2 + 3; 
+}

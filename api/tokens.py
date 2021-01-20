@@ -16,9 +16,9 @@ class Token:
         }
 
         token_to_id = {
-            "constanteEntera":   'c',
-            "constanteBooleana": 'c',
-            "cadenaCaracteres":  'c',
+            "constanteEntera":   'n',
+            "constanteBooleana": 'b',
+            "cadenaCaracteres":  's',
             "identificador": 'id'
         }
 

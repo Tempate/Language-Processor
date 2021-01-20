@@ -1,15 +1,32 @@
+//Cambiad los operadores por los que tengais implementados
+//Poned los comentarios a partir de los dos sitios donde aparece * con el formato de comentarios que tengais
+//Incorporad un ejemplo de vuestra sentencia compleja (for, while, etc.) en algún punto del programa
 
+let number y1;
+let string z;
 
-	let	boolean	b;let number x;
-input (x);
-alert (x);
-input (z);
-alert (x+z);
-b=x<z;if (b)
-x =
-  x + 6
-    + z
-    + 1
-    + (2
-    + y
-    + 6);
+function number Func1 (number x, boolean y1)  
+{  let boolean w;
+   x = 11;
+   z = 'hola';
+   return x;
+   //return y1;
+}
+
+function number Func2 (number z, number n)
+{  
+   n = 13;
+   z = y1 + Func2(4);
+   return 5;
+}
+
+alert (z); 
+y1 = 24;
+
+//y1=2222222;
+//z='hola;
+y1=Func1(6, 6<7);
+//y1=3+z;
+//return 3;
+//Func2=7;
+//Para Vast, borrar todo y dejar: let boolean a; a=3>2+1;

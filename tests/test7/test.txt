@@ -9,15 +9,15 @@ let boolean boolean_2;
 function number f1(number f1, boolean b1)
 {
 		alert(ss);
-		x -= xx+f1;
-		boolean_1 = boolean_1&& boolean_2;
+		x -= xx + f1 + y;
+		boolean_1 = boolean_1 && boolean_2;
 		return (01234);
 }
 
 
 function boolean f2(number f2, boolean b1)
 {
-		input (y);
+		input (x);
 		alert ((4+5+77+(088+f2)));
 		return (boolean_1&&boolean_2&&b1);
 }
@@ -27,9 +27,9 @@ x =
     + z 
     + 1
     + (2
-    + y 
-    + 6)
+    + 6 + f1(1, boolean_1 && f2(1, 1 < 1)))
 	;
 	
-ss=;	
-alert (f2 (f1 (x, boolean_1), boolean_2));
+ss= 'Hola';
+
+f2(f1(x, boolean_1), boolean_2);

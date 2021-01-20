@@ -4,14 +4,20 @@ from api.characters import *
 
 
 class LexicalAutomata:
-    def __init__(self, options, symbol_table):
+    def __init__(self, options, symbol_tables):
         # Iniciamos el autómata en el estado 0
         self.state = self.state_0
 
         self.inp_file = open(options["input"], "r")
         self.out_file = open(options["tokens"], "w")
 
-        self.symbol_table = symbol_table
+        self.options = options
+
+        self.symbol_tables = symbol_tables
+        self.current_table = self.symbol_tables[0]
+
+        self.wants_to_change = False
+        self.declaration_zone = False
 
         self.current_line = {"number": 1, "value": ""}
         
@@ -44,6 +50,10 @@ class LexicalAutomata:
             self.state_9(' ')
         elif self.state == self.state_4:
             self.state_10(' ')
+        
+        if self.state == self.state_5:
+            print("[-] Error: String quotes not closed correctly")
+            exit(0)
 
         self.inp_file.close()
         self.out_file.close()
@@ -138,12 +148,18 @@ class LexicalAutomata:
             token = Token("separador", 2)
         elif char == '{':
             token = Token("separador", 3)
+            self.declaration_zone = False
         elif char == '}':
             token = Token("separador", 4)
         elif char == ',':
             token = Token("separador", 5)
         elif char == ';':
             token = Token("separador", 6)
+            self.declaration_zone = False
+
+            if self.wants_to_change:
+                self.current_table = self.symbol_tables[0]
+                self.wants_to_change = False
         elif char == ':':
             token = Token("separador", 7)
         
@@ -170,16 +186,43 @@ class LexicalAutomata:
 
         if self.lexeme in reserved_words:
             token = Token(self.lexeme, "")
+
+            if self.lexeme == "function":
+                self.symbol_tables.append(SymbolTable(self.options, len(self.symbol_tables) + 1))
+                self.wants_to_change = True
+                self.declaration_zone = True
+            elif self.lexeme == "return":
+                self.wants_to_change = True
+            elif self.lexeme in "let":
+                self.declaration_zone = True
+
         elif self.lexeme == "true" or self.lexeme == "false":
             token = Token("constanteBooleana", self.lexeme)
-        elif not self.symbol_table.has(self.lexeme):
+        elif self.declaration_zone and not self.current_table.has(self.lexeme):
             # El lexema no está en la tabla de símbolos
-            # TODO: Implementar la zona de declaración del analizador semántico
-            position = self.symbol_table.add(self.lexeme)
-            token = Token("identificador", position)
+            position = self.current_table.add({"lexeme": self.lexeme})
+            token = Token("identificador", self.gen_id(self.current_table, position))
+
+            if self.wants_to_change:
+                if self.current_table == self.symbol_tables[0]:
+                    self.current_table = self.symbol_tables[-1]
+                else:
+                    self.current_table = self.symbol_tables[0]
+                
+                self.wants_to_change = False
+
         else:
-            position = self.symbol_table.find(self.lexeme)
-            token = Token("identificador", position)
+
+            try:
+                position = self.current_table.find_index(self.lexeme)
+                token = Token("identificador", self.gen_id(self.current_table, position))
+            except IndexError:
+                try:
+                    position = self.symbol_tables[0].find_index(self.lexeme)
+                    token = Token("identificador", self.gen_id(self.symbol_tables[0], position))
+                except IndexError:
+                    print("[-] ERROR: variable '%s' is not defined" % self.lexeme)
+                    exit(0)
 
         self.write_token(token)
         self.state_0(char)
@@ -199,6 +242,10 @@ class LexicalAutomata:
     def state_13(self, char):
         if char == '\n':
             self.state = self.state_0
+
+    @staticmethod
+    def gen_id(table, position):
+        return 10 * (table.id - 1) + position
 
     def read_next_character(self):
         char = self.inp_file.read(1)

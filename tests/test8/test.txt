@@ -1,15 +1,19 @@
+let	boolean	b;
+let number x;
+let number z;
 
-
-	let	boolean	b;let number x;
 input (z);
 alert (z);
-x=z;
-alert (z+1);
-b=b&&b;if (b)
-x =
-  x + 6
-    + z
-    + 1
-    + (2
-    + y
-    + 6);
+
+let string c = 'Hola';
+
+function number foo(number r) {
+    return r + 3;
+}
+
+x = z;
+
+alert(z+1);
+
+b = b && b;
+if (b) x = x + 6 + z + (2 + 6);

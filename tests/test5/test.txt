@@ -5,7 +5,6 @@ let boolean l2;
 let string cad;
 
 alert ('PdL');
-input (esto_es_un_nombre_de_variable_global_de_tipo_entero);
 input (n1);
 l1 = l2;
 if (l1&& l2) cad = 'hello';
@@ -19,11 +18,11 @@ alert(	33
 
 function boolean ff(boolean ss)
 {
-	varglobal = 03;
+	n1 = 03;
 	if (l1) l2 = ff (ss);
 	return ss;
 }
 		
 		
 		
-if (ff(l1)) alert (varglobal);
+if (ff(l1)) alert (n1);

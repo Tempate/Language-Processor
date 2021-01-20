@@ -6,6 +6,10 @@
 <number, >
 <identificador, 1>
 <separador, 6>
+<let, >
+<number, >
+<identificador, 2>
+<separador, 6>
 <input, >
 <separador, 1>
 <identificador, 2>
@@ -45,12 +49,8 @@
 <operadorAritmetico, 1>
 <identificador, 2>
 <operadorAritmetico, 1>
-<constanteEntera, 1>
-<operadorAritmetico, 1>
 <separador, 1>
 <constanteEntera, 2>
-<operadorAritmetico, 1>
-<identificador, 3>
 <operadorAritmetico, 1>
 <constanteEntera, 6>
 <separador, 2>

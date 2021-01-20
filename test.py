@@ -1,11 +1,13 @@
-from src.automata import Automata
-from src.symbol_table import SymbolTable
+from core.lexical import LexicalAutomata
+from core.syntactic import SyntacticAutomata
+from api.symbol_table import SymbolTable
 
 import filecmp
 import os
 
+
 def test():
-    for i in range(5):
+    for i in range(14):
         run(i + 1)
 
 
@@ -14,16 +16,17 @@ def run(id_):
 
     options = {
         "input": dir_ + "test.txt",
-        "tokens": "tokens.txt", 
-        "tables": "tables.txt"
+        "tokens": dir_ + "tokens.txt", 
+        "tables": dir_ + "tables.txt",
+        "parse": dir_ + "parse.txt"
     }
 
     print("\n[*] Running test %d" % id_)
 
     symbol_table = SymbolTable(options)
 
-    automata = Automata(options, symbol_table)
-    automata.run()
+    tokens = LexicalAutomata(options, symbol_table).run()
+    SyntacticAutomata(options, tokens).run()
 
     symbol_table.save()
 

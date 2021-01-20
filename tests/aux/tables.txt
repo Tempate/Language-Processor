@@ -1,0 +1,17 @@
+#2:
+* LEXEMA: 'x'
+ATRIBUTOS:
++ Tipo : 'NUMBER' 
++ Despl : 0 
+
+* LEXEMA: 'y1'
+ATRIBUTOS:
++ Tipo : 'BOOLEAN' 
++ Despl : 1 
+
+* LEXEMA: 'w'
+ATRIBUTOS:
++ Tipo : 'BOOLEAN' 
++ Despl : 2 
+
+
