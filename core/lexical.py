@@ -173,6 +173,10 @@ class LexicalAutomata:
         self.state = self.state_0
     
     def state_9(self, char):
+        if self.value > 32767:
+            print("[-] Error: Integer value out of range")
+            exit(0)
+
         token = Token("constanteEntera", self.value)
 
         self.write_token(token)
@@ -221,13 +225,18 @@ class LexicalAutomata:
                     position = self.symbol_tables[0].find_index(self.lexeme)
                     token = Token("identificador", self.gen_id(self.symbol_tables[0], position))
                 except IndexError:
-                    print("[-] ERROR: variable '%s' is not defined" % self.lexeme)
-                    exit(0)
+                    position = self.symbol_tables[0].add({"lexeme": self.lexeme, "type": "number", "shift": self.symbol_tables[0].shift})
+                    token = Token("identificador", self.gen_id(self.symbol_tables[0], position))
+                    self.symbol_tables[0].shift += 1
 
         self.write_token(token)
         self.state_0(char)
     
     def state_11(self, char):
+        if len(self.lexeme) > 64:
+            print("[-] Error: String is too long")
+            exit(0)
+
         token = Token("cadenaCaracteres", self.lexeme)
 
         self.write_token(token)

@@ -2,8 +2,10 @@
 //Poned los comentarios a partir de los dos sitios donde aparece * con el formato de comentarios que tengais
 //Incorporad un ejemplo de vuestra sentencia compleja (for, while, etc.) en algún punto del programa
 
-let number y1;
-let string z;
+let number y1 = 10;
+let string z = 'asss';
+
+input(y);
 
 function number Func1 (number x, boolean y1)  
 {  let boolean w;
@@ -16,7 +18,7 @@ function number Func1 (number x, boolean y1)
 function number Func2 (number z, number n)
 {  
    n = 13;
-   z = y1 + Func2(4);
+   z = y1 + Func2(4, 4);
    return 5;
 }
 

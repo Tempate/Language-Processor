@@ -1,3 +1,48 @@
+#1:
+* LEXEMA: 'y1'
+ATRIBUTOS:
++ Tipo : 'NUMBER' 
++ Despl : 1 
+
+* LEXEMA: 'z'
+ATRIBUTOS:
++ Tipo : 'STRING' 
++ Despl : 2 
+
+* LEXEMA: 'y'
+ATRIBUTOS:
++ Tipo : 'NUMBER' 
++ Despl : 0 
+
+* LEXEMA: 'Func1'
+ATRIBUTOS:
++ Tipo : 'FUNCTION' 
++ numParam : 2 
++ TipoRetorno : 'NUMBER' 
++ TipoParam1 : 'NUMBER'
++ TipoParam2 : 'BOOLEAN'
+
+* LEXEMA: 'Func2'
+ATRIBUTOS:
++ Tipo : 'FUNCTION' 
++ numParam : 2 
++ TipoRetorno : 'NUMBER' 
++ TipoParam1 : 'NUMBER'
++ TipoParam2 : 'NUMBER'
+
+
+#3:
+* LEXEMA: 'z'
+ATRIBUTOS:
++ Tipo : 'NUMBER' 
++ Despl : 0 
+
+* LEXEMA: 'n'
+ATRIBUTOS:
++ Tipo : 'NUMBER' 
++ Despl : 1 
+
+
 #2:
 * LEXEMA: 'x'
 ATRIBUTOS:

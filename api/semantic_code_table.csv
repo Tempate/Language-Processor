@@ -11,7 +11,6 @@ Pointer,Code
 3.1,"self.current_table.add({""lexeme"": self.find_id(stack.get_element(2))[""lexeme""], ""type"": stack.find(""T"")[""type""], ""shift"": self.current_table.shift})"
 3.2,"stack.set(""FD"", ""param_count"", 1)"
 3.3,"stack.set(""FD"", ""param_type"", [stack.find(""T"")[""type""]])"
-3.4,pass
 3.5,"self.current_table.shift += widths[stack.find(""T"")[""type""]]"
 3.6,"stack.set(""FD"", ""param_count"", stack.find(""FD"")[""param_count""] + stack.find(""PD"")[""param_count""])"
 3.7,"stack.set(""FD"", ""param_type"", stack.find(""FD"")[""param_type""] + stack.find(""PD"")[""param_type""])"
@@ -30,22 +29,19 @@ Pointer,Code
 8.1,"if stack.find(""I"")[""type""] != ""number"" and stack.find(""I"")[""return_type""] != ""number"": self.error(""Switch argument is not a number"")"
 8.2,"if stack.find(""SC"")[""type""] != ""number"": self.error(""Wrong type for cases"")"
 9.1,"stack.set(""D"", ""type"", stack.find(""L"")[""type""])"
+9.2,"if not self.find_id(stack.get_element(4)) or self.find_id(stack.get_element(4))[""type""] not in [""string"", ""number""]: self.error(""Variable is already declared"")"
 10.1,"if not self.find_id(stack.get_element(4)): self.error(""Wrong id"")"
 10.2,"if stack.find(""SI"")[""type""] and self.find_id(stack.get_element(5))[""type""] != stack.find(""SI"")[""type""] and self.find_id(stack.get_element(5))[""type""] != stack.find(""SI"")[""return_type""]: self.error(""Wrong types"")"
-10.3,pass
-10.4,"if stack.find(""SI"")[""param_type""] != self.find_id(stack.get_element(7))[""param_type""]: self.error(""Wrong param types"")"
-10.5,"if self.find_id(stack.get_element(8))[""type""] == ""function"" and self.find_id(stack.get_element(8))[""param_count""] != stack.find(""SI"")[""param_count""]: self.error(""Wrong param count"")"
+10.4,"if stack.find(""SI"")[""param_type""] != self.find_id(stack.get_element(6))[""param_type""]: self.error(""Wrong param types"")"
+10.5,"if self.find_id(stack.get_element(7))[""type""] == ""function"" and self.find_id(stack.get_element(7))[""param_count""] != stack.find(""SI"")[""param_count""]: self.error(""Wrong param count"")"
 11.1,"stack.set(""LE"", ""type"", stack.find(""Z"")[""type""])"
 12.1,"stack.set(""SI"", ""type"", stack.find(""L"")[""type""])"
 12.2,"stack.set(""SI"", ""return_type"", stack.find(""L"")[""return_type""])"
 13.1,"stack.set(""SI"", ""type"", ""number"") if stack.find(""L"")[""type""] == ""number"" else self.error(""Wrong types"")"
 14.1,"stack.set(""SI"", ""param_count"", stack.find(""P"")[""param_count""])"
 14.2,"stack.set(""SI"", ""param_type"", stack.find(""P"")[""param_type""]) "
-14.3,pass
-14.4,pass
 15.1,"stack.set(""LE"", ""type"", ""boolean"") if stack.find(""L"")[""type""] == ""boolean"" else self.error(""Wrong types"")"
 15.2,"if stack.find(""LE"")[""type""] != ""boolean"" or stack.find(""L"")[""type""] != ""boolean"": self.error(""Wrong types"")"
-15.3,pass
 16.1,"stack.set(""L"", ""type"", stack.find(""E"")[""type""])"
 16.2,"stack.set(""L"", ""return_type"", stack.find(""E"")[""return_type""])"
 16.3,"if stack.find(""LL"")[""type""] and stack.find(""LL"")[""type""] != stack.find(""E"")[""type""]: self.error(""Wrong types"")"
@@ -63,14 +59,12 @@ Pointer,Code
 21.1,"if not self.find_id(stack.get_element(3)): self.error(""Undeclared ID"")"
 21.2,"if self.find_id(stack.get_element(4))[""type""] == ""function"": stack.set(""Y"", ""return_type"", self.find_id(stack.get_element(4))[""return_type""])"
 21.3,"stack.set(""Y"", ""type"", self.find_id(stack.get_element(5))[""type""])"
-21.4,pass
-21.5,"if self.find_id(stack.get_element(7))[""type""] == ""function"" and self.find_id(stack.get_element(7))[""param_count""] != stack.find(""P"")[""param_count""]: self.error(""Wrong number of arguments"")"
-21.6,"if self.find_id(stack.get_element(8))[""type""] == ""function"" and self.find_id(stack.get_element(8))[""param_type""] != stack.find(""P"")[""param_type""]: self.error(""Wrong types of arguments"")"
+21.5,"if self.find_id(stack.get_element(6))[""type""] == ""function"" and self.find_id(stack.get_element(6))[""param_count""] != stack.find(""P"")[""param_count""]: self.error(""Wrong number of arguments"")"
+21.6,"if self.find_id(stack.get_element(7))[""type""] == ""function"" and self.find_id(stack.get_element(7))[""param_type""] != stack.find(""P"")[""param_type""]: self.error(""Wrong types of arguments"")"
 22.1,"stack.set(""Y"", ""type"", stack.find(""Z"")[""type""])"
 23.1,"stack.set(""P"", ""type"", stack.find(""FV"")[""type""])"
 23.2,"stack.set(""P"", ""param_type"", stack.find(""FV"")[""param_type""])"
 23.3,"stack.set(""P"", ""param_count"", stack.find(""FV"")[""param_count""])"
-24.1,pass
 25.1,"stack.set(""T"", ""type"", ""number"")"
 25.2,"stack.set(""T"", ""shift"", 1)"
 26.1,"stack.set(""T"", ""type"", ""boolean"")"
